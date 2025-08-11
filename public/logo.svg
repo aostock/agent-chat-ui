@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组备份 2</title>
+    <defs>
+        <linearGradient x1="71.9043614%" y1="15.4432714%" x2="11.9545611%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FF1D1D" offset="0%"></stop>
+            <stop stop-color="#FFD864" offset="100%"></stop>
+        </linearGradient>
+        <path d="M14.4715877,14.2121379 L15.556967,17.3793103 L22.7296715,17.3793042 C20.7573631,21.3056291 16.6933336,24 12,24 C7.30666641,24 3.24263688,21.3056291 1.27032847,17.3793042 L8.27586207,17.3793103 L8.2752069,17.2898966 L9.38276014,14.2121379 L14.4715877,14.2121379 Z M12,0 C18.627417,-1.77635684e-15 24,5.372583 24,12 C24,13.1485095 23.8386519,14.2593342 23.5373863,15.3110436 L17.4562069,15.3098966 L13.6353119,5.03089655 L10.2724153,5.03089655 L6.4352069,15.3098966 L0.462613742,15.3110436 C0.161348055,14.2593342 0,13.1485095 0,12 C0,5.372583 5.372583,0 12,0 Z M12.0517257,7.25503448 L13.7242774,12.1125517 L10.1122774,12.1125517 L11.8382084,7.25503448 L12.0517257,7.25503448 Z" id="path-2"></path>
+        <filter x="-4.2%" y="-4.2%" width="108.3%" height="108.3%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="0.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.200475306 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页" transform="translate(-12.000000, -44.000000)">
+            <g id="形状结合" transform="translate(12.000000, 44.000000)">
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+            </g>
+        </g>
+    </g>
+</svg>
