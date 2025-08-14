@@ -36,7 +36,7 @@ export function CodeBlock({
   className,
 }: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const resetTheme = () => {
     // Dynamically import the highlight.js theme based on the current theme
@@ -49,14 +49,14 @@ export function CodeBlock({
       themeLink.rel = "stylesheet";
       document.head.appendChild(themeLink);
     }
-    if (!themeLink.href.includes(`highlight-${theme}.css`)) {
-      themeLink.href = `/static/styles/highlight-${theme}.css`;
+    if (!themeLink.href.includes(`highlight-${resolvedTheme}.css`)) {
+      themeLink.href = `/static/styles/highlight-${resolvedTheme}.css`;
     }
 
-    console.log("change theme", theme, new Date());
+    console.log("change theme", resolvedTheme, new Date());
   };
 
-  useEffect(resetTheme, [theme]); // Re-run effect when theme changes
+  useEffect(resetTheme, [resolvedTheme]); // Re-run effect when theme changes
 
   useEffect(() => {
     if (codeRef.current) {
