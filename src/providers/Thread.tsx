@@ -1,6 +1,6 @@
 "use client";
 
-import { validate } from "uuid";
+import { validate, v4 } from "uuid";
 import { Thread } from "@langchain/langgraph-sdk";
 import {
   createContext,
@@ -24,17 +24,22 @@ interface ThreadContextType {
   archiveThread: (threadId: string) => Promise<void>;
   settings: Settings;
   setSettings: Dispatch<SetStateAction<Settings>>;
+  userId: string | undefined;
+  setUserId: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const ThreadContext = createContext<ThreadContextType | undefined>(undefined);
 
 function getThreadSearchMetadata(
   assistantId: string,
-): { graph_id: string } | { assistant_id: string } {
+  userId: string,
+):
+  | { graph_id: string; user_id: string }
+  | { assistant_id: string; user_id: string } {
   if (validate(assistantId)) {
-    return { assistant_id: assistantId };
+    return { assistant_id: assistantId, user_id: userId };
   } else {
-    return { graph_id: assistantId };
+    return { graph_id: assistantId, user_id: userId };
   }
 }
 
@@ -45,6 +50,7 @@ export function ThreadProvider({ children }: { children: ReactNode }) {
     "aostock_settings",
     DEFAULT_SETTINGS,
   );
+  const [userId, setUserId] = useLocalStorage("aostock_user_id", v4());
 
   // Ensure settings is always of type Settings, never undefined
   const settings = storedSettings || DEFAULT_SETTINGS;
@@ -60,7 +66,7 @@ export function ThreadProvider({ children }: { children: ReactNode }) {
 
     const threads = await client.threads.search({
       metadata: {
-        ...getThreadSearchMetadata(settings.assistantId),
+        ...getThreadSearchMetadata(settings.assistantId, userId || v4()),
       },
       limit: 100,
     });
@@ -84,6 +90,8 @@ export function ThreadProvider({ children }: { children: ReactNode }) {
     archiveThread,
     settings,
     setSettings,
+    userId,
+    setUserId,
   };
 
   return (

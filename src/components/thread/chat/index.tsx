@@ -9,7 +9,6 @@ import { ArrowDown } from "lucide-react";
 import { useQueryState, parseAsBoolean } from "nuqs";
 import { toast } from "sonner";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { Settings } from "@/components/settings";
 import { CodeBlock } from "@/components/core";
 
 import { useFileUpload } from "@/hooks/use-file-upload";
@@ -47,6 +46,7 @@ export function Chat() {
     "hideToolCalls",
     parseAsBoolean.withDefault(false),
   );
+  const { userId } = useThreads();
   const [input, setInput] = useState("");
   const {
     contentBlocks,
@@ -127,9 +127,6 @@ export function Chat() {
     prevMessageLength.current = messages.length;
   }, [messages]);
 
-  // Load settings from Thread provider
-  const { settings } = useThreads();
-
   const sendMessage = (text: string) => {
     setFirstTokenReceived(false);
 
@@ -150,11 +147,13 @@ export function Chat() {
     stream.submit(
       { messages: [...toolMessages, newHumanMessage] },
       {
+        metadata: {
+          user_id: userId,
+        },
         streamMode: ["values"],
         optimisticValues: (prev) => ({
           ...prev,
           context,
-          settings,
           messages: [
             ...(prev.messages ?? []),
             ...toolMessages,
@@ -185,6 +184,9 @@ export function Chat() {
 
     stream.submit(undefined, {
       checkpoint: parentCheckpoint,
+      metadata: {
+        user_id: userId,
+      },
       streamMode: ["values"],
       optimisticValues: (prev) => ({
         ...prev,
